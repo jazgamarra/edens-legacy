@@ -4,7 +4,7 @@ class Recurso (metaclass=ABCMeta):
     ''' Representa un recurso del juego. '''
 
     def __init__(self, ecosistema):
-        self.__cantidad = 0
+        self.cantidad = 0
         self.indice_extraccion = self.asignar_indice_extraccion(ecosistema)
 
     def asignar_indice_extraccion(self, ecosistema): 

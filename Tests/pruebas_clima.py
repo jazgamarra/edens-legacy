@@ -9,11 +9,11 @@ class Clima:
         ''' Modificar el clima dependiendo de si corresponda al turno. Gestiona el contador de clima y las llamadas al verificador de clima. '''
         
         self.contador_clima +=1 
-        self.estacion_actual = self.cambiar_estacion()
+        self.estacion_actual = self.verificar_estacion()
 
-    def cambiar_estacion(self):
+    def verificar_estacion(self):
         ''' Se encarga de modificar las estaciones dependiendo de la estacion actual'''
-        
+
         def modificar_estacion(i, nueva_estacion, estacion_actual):
             if self.contador_clima == i:
                 self.contador_clima = 0
@@ -22,7 +22,6 @@ class Clima:
 
         return modificar_estacion(3, 'invierno', 'verano') if self.estacion_actual == 'verano' else modificar_estacion(2, 'verano', 'invierno')
         
-    
 
 clima = Clima()
 
