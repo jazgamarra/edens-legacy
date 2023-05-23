@@ -1,3 +1,4 @@
+from Modelos import Mapa
 def __procesar_input(entrada): 
 
     try: 
