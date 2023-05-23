@@ -1,4 +1,3 @@
-import Modelos.data
 
 class Sociedad: 
     def __init__(self, raza):

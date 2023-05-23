@@ -9,3 +9,10 @@ def condiciones_mortalidad (clima, comida, combustible):
         }, {'condicion': clima == 'verano' and comida <= 0,
             'retorno': 0.2
         }]
+
+mapa = [
+    ['B', 'L', 'C', 'B'],
+    ['C', 'B', 'L', 'C'],
+    ['B', 'L', 'C', 'B'],
+    ['C', 'B', 'L', 'C']
+] 

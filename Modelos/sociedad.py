@@ -1,4 +1,4 @@
-from data import condiciones_mortalidad
+from Recursos.data import condiciones_mortalidad
 from recursos import Combustible, Comida, Herramienta
 
 class Sociedad: 
@@ -13,7 +13,6 @@ class Sociedad:
     def mortalidad (self, clima_estacional):
         return None 
     
-    from Modelos.data import condiciones_mortalidad
 
 class Sociedad: 
     def __init__(self, raza):
@@ -39,7 +38,6 @@ class Sociedad:
             if i['condicion']: 
                 indice = i['retorno']
                 break
-            s
         return self.poblacion_actual * indice 
 
     
