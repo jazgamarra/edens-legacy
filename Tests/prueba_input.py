@@ -14,3 +14,17 @@ def __procesar_input(entrada):
 
 entrada = input("Introduce las coordenadas de la matriz (por ejemplo, 1A): ")
 __procesar_input(entrada)
+
+
+
+
+##########################################################################
+matriz = Mapa()
+while 1: 
+    matriz.mostrar_mapa()
+    lugar = matriz.seleccionar_lugar() 
+
+    print(lugar.nombre)
+    lugar.fue_explorado = True 
+
+
