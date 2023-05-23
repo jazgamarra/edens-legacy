@@ -6,7 +6,6 @@ class Lugar (metaclass=ABCMeta):
         self.nombre = nombre
         self.coordenadas = coordenadas
         self.codigo = codigo
-        self.fue_explorado = False 
 
 class Asentamiento (Lugar): 
     ''' Representa un ecosistema ya colonizado. '''
@@ -26,6 +25,8 @@ class Ecosistema (Lugar):
     def __init__ (self, nombre, coordenadas, recursos, codigo):
         super().__init__(nombre, coordenadas, codigo)
         self.recursos = recursos
+        self.fue_explorado = False 
+
 
     def __calcular_recompensa(recurso, cant_poblacion): 
         ''' Calcula la recompensa por recurso en base al indice de extraccion y la cantidad de poblacion que exista '''

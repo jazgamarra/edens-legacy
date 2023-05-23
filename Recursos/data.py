@@ -1,4 +1,5 @@
-def condiciones_mortalidad (clima, comida, combustible): 
+def condiciones_mortalidad (clima, comida, combustible):
+    ''' Crea las condiciones para calcular el indice de mortalidad seggun parametros actuales ''' 
     return [
         {   'condicion': clima == 'invierno' and comida <= 0,
             'retorno': 0.55
