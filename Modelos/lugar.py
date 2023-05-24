@@ -1,4 +1,5 @@
 from abc import ABCMeta 
+from Modelos.recursos import *
 
 class Lugar (metaclass=ABCMeta): 
     ''' Representa un espacio en el mapa. '''
@@ -27,40 +28,25 @@ class Ecosistema (Lugar):
         self.recursos = recursos
         self.fue_explorado = False 
 
-
-    def __calcular_recompensa(recurso, cant_poblacion): 
-        ''' Calcula la recompensa por recurso en base al indice de extraccion y la cantidad de poblacion que exista '''
-        return None 
-    
-    def explorar (cant_poblacion): 
-        ''' Permite desbloquear una zona y obtener recursos de ella '''
-        return None 
-    
-    def explorar (): 
-        ''' Convierte un ecosistema en un asentamiento '''
-        return None 
     
 class Bosque (Ecosistema): 
     ''' Representa un ecosistema dentro del mapa.'''
 
     def __init__(self, coordenadas):
 
-        super().__init__(nombre='Bosque', coordenadas=coordenadas, recursos=['comida', 'combustible', 'herramientas'],  codigo='BOSQ')
-        # pendiente: asignar recursos como objetos
+        super().__init__(nombre='Bosque', coordenadas=coordenadas, recursos=[Comida('Bosque'), Combustible('Bosque'), Herramienta('Bosque')],  codigo='BOSQ')
 
 class Lago (Ecosistema): 
     ''' Representa un ecosistema dentro del mapa.'''
     
     def __init__(self, coordenadas):
-        super().__init__(nombre='Lago', coordenadas=coordenadas, recursos=['comida'], codigo='LAGO')
-        # pendiente: asignar recursos como objetos
-
+        super().__init__(nombre='Lago', coordenadas=coordenadas, recursos=[Comida('Lago')], codigo='LAGO')
 
 class ZonaDeCaza (Ecosistema): 
     ''' Representa un ecosistema dentro del mapa.'''
     def __init__(self, coordenadas):
-        super().__init__(nombre='Zona de caza', coordenadas=coordenadas, recursos=['comida', 'combustible'],  codigo='CAZA')
-        # pendiente: asignar recursos como objetos
+        super().__init__(nombre='Zona de caza', coordenadas=coordenadas, recursos=[Comida('Zona de caza'), Combustible('Zona de caza')],  codigo='CAZA')
+
 
 
 

@@ -1,5 +1,5 @@
 from abc import ABCMeta 
-from data import indice_extraccion
+from Recursos.data import indice_extraccion
 
 class Recurso (metaclass=ABCMeta): 
     ''' Representa un recurso del juego. '''
@@ -9,11 +9,11 @@ class Recurso (metaclass=ABCMeta):
         self.nombre = nombre
         self.indice_extraccion = self.asignar_indice_extraccion(ecosistema)
 
-    def asignar_indice_extraccion(nombre, ecosistema): 
+    def asignar_indice_extraccion(self, ecosistema): 
         ''' Retorna el indice de extraccion de un recurso en un ecosistema determinado. '''
 
         try: 
-            indice = indice_extraccion[nombre][ecosistema]
+            indice = indice_extraccion[self.nombre][ecosistema]
 
             if ecosistema == None: 
                 raise ValueError 

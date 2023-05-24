@@ -1,5 +1,5 @@
 from Recursos.data import condiciones_mortalidad
-from recursos import Combustible, Comida, Herramienta
+from Modelos.recursos import Combustible, Comida, Herramienta
 
 class Sociedad: 
     def __init__(self, raza):
