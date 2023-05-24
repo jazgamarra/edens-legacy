@@ -9,6 +9,7 @@ class Mapa():
         [ZonaDeCaza([3, 0]), Bosque([3, 1]), Lago([3, 2]), ZonaDeCaza([3, 3])]
         ]
 
+    # aqui se agregaran las funciones de generacion de mundo en proximas versiones :) 
     
     
         

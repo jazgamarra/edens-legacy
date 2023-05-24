@@ -1,5 +1,18 @@
 def condiciones_mortalidad (clima, comida, combustible):
-    ''' Crea las condiciones para calcular el indice de mortalidad seggun parametros actuales ''' 
+    ''' Crea las condiciones para calcular el indice de mortalidad seggun parametros actuales.  ''' 
+
+    ''' Esta funcion busca mapear los valores con valores verdaderos o falsos. Despues de procesarse quedaria asi: 
+
+        {   'condicion': True, 'retorno': 0.55
+        }, {'condicion': False, 'retorno': 0.35
+        }, {'condicion': False, 'retorno': 0.25
+        }, {'condicion': False, 'retorno': 0.2
+        }, {'condicion': True, 'retorno': 0.05
+        }]
+
+        Al recorrerla, se retorna el primer valor verdadero que se encuentre, y asi se retornaria el indice de mortalidad mas alto dependiendo de las condiciones en la que se encuentre 
+    '''
+
     return [
         {   'condicion': clima == 'invierno' and comida <= 0,
             'retorno': 0.55
@@ -13,6 +26,7 @@ def condiciones_mortalidad (clima, comida, combustible):
             'retorno': 0.05
         }]
 
+''' Genere un json para mapear los valores de extraccion con el recurso y lugar en el que se obtienen '''
 indice_extraccion = {
     'comida': 
         {'Bosque': 1.2, 
@@ -31,3 +45,10 @@ indice_extraccion = {
          'Zona de caza': 1.3 
         }
 }
+
+def cond_game_over (turno, sociedad):
+    ''' Crea las condiciones para calcular el indice de mortalidad segun parametros actuales ''' 
+    return [ turno > 5 and sociedad.recursos['comida'].cantidad == 0, 
+             turno > 5  and sociedad.recursos['herramienta'].cantidad == 0, 
+             turno > 5  and sociedad.recursos['combustible'].cantidad == 0]
+        

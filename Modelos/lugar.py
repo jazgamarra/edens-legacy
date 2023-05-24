@@ -7,18 +7,17 @@ class Lugar (metaclass=ABCMeta):
         self.nombre = nombre
         self.coordenadas = coordenadas
         self.codigo = codigo
+        self.fue_explorado = False
+        self.fue_colonizado = False 
 
 class Asentamiento (Lugar): 
     ''' Representa un ecosistema ya colonizado. '''
 
-    def __init__ (self, nombre, coordenadas, ecosistemas_adaycentes):
-        super().__init__(nombre, coordenadas)
-        self.ecosistemas_adaycentes = ecosistemas_adaycentes
+    def __init__ (self, nombre, coordenadas, ecosistemas_adyacentes):
+        super().__init__(nombre=nombre, coordenadas=coordenadas, codigo='ASENT')
+        self.ecosistemas_adyacentes = ecosistemas_adyacentes
+        self.fue_colonizado = True 
 
-    def dar_recursos_pasivamente (poblacion): 
-        ''' Dar recompensas en cada turno '''
-        
-        return None 
     
 class Ecosistema (Lugar): 
     '''Representa un ecosistema que puede ser explorado. '''
@@ -26,7 +25,7 @@ class Ecosistema (Lugar):
     def __init__ (self, nombre, coordenadas, recursos, codigo):
         super().__init__(nombre, coordenadas, codigo)
         self.recursos = recursos
-        self.fue_explorado = False 
+        
 
 class Bosque (Ecosistema): 
     ''' Representa un ecosistema dentro del mapa.'''
