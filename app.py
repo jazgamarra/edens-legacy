@@ -1,12 +1,12 @@
 import os
 import time 
-from Modelos.clima import Clima 
+from Modelos.clima_estacional import ClimaEstacional 
 from Modelos.sociedad import Sociedad 
 from Modelos.raza import Duende
-from Modelos.mecanicas_juego import Juego 
+from Vista.mecanicas_juego import Juego 
 from Modelos.mapa import Mapa
 
-clima = Clima() 
+clima = ClimaEstacional() 
 sociedad = Sociedad(Duende())
 mapa = Mapa()
 juego = Juego(sociedad, clima, mapa)

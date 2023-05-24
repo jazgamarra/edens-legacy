@@ -1,7 +1,7 @@
 import math
 from colorama import Fore
 from Modelos.lugar import Asentamiento 
-from Recursos.data import cond_game_over 
+from Recursos.cond_game_over import cond_game_over 
 
 class Juego: 
     ''' Almacena las mecanicas del juego '''
@@ -19,8 +19,8 @@ class Juego:
         self.turno_juego += 1 # se suma un turno mas al juego 
         self.clima.gestionar_clima(self.turno_juego) # se verifica si hubo un cambio de estacion 
         self.sociedad.censar_poblacion(self.clima.estacion_actual) # se aplican reglas de natalidad y mortalidad 
-        self.obtener_recursos_pasivamente() # se obtienen recursos de los ecosistemas adyacentes a las ciudades 
-        self.condiciones_game_over() # se verifica si se puede continuar el juego 
+        self.__obtener_recursos_pasivamente() # se obtienen recursos de los ecosistemas adyacentes a las ciudades 
+        self.__condiciones_game_over() # se verifica si se puede continuar el juego 
     
     def seleccionar_lugar(self): 
         ''' Permite seleccionar la zona a ejecutar la accion. '''
@@ -67,7 +67,8 @@ class Juego:
     def seleccionar_accion(self, eleccion, lugar): 
         ''' Permite al usuario la accion a ejecutar con el lugar previamente seleccionado '''
         if eleccion == 'A': 
-            self.explorar(lugar)
+            feedback = self.explorar(lugar)
+            self.feedback_del_turno(feedback)
         elif eleccion == 'B': 
             self.colonizar(lugar)
         else: 
@@ -77,7 +78,7 @@ class Juego:
         ''' Muestra al usuario las ganancias del turno. '''
 
         print(Fore.MAGENTA+'------------------------------')
-        print('En este turno, has obtenido:')
+        print('En este ecosistema, has obtenido:')
         print('-----------------------------')
         print('Cantidad        Recurso '+Fore.WHITE) 
         for i in lista_feedback: 
@@ -89,9 +90,9 @@ class Juego:
         print('------------------------------'+Fore.WHITE)
         print('Poblacion:', self.sociedad.poblacion_actual)
         print('Turno:', self.turno_juego)
-        print('Clima estacional:', self.clima.estacion_actual)
+        print('Clima Estacional:', self.clima.estacion_actual)
 
-    def calcular_recompensa(self, recurso): 
+    def __calcular_recompensa(self, recurso): 
         ''' Calcula la recompensa por recurso en base al indice de extraccion y la cantidad de poblacion que exista '''
 
         return recurso.indice_extraccion * self.sociedad.poblacion_actual
@@ -111,16 +112,15 @@ class Juego:
         # Intercambio de recursos entre el ecosistema y la sociedad 
         lista_feedback = self.intercambio_de_recursos(ecosistema) 
 
-        # Se envian los datos para el feedback 
-        self.feedback_del_turno(lista_feedback)
-
         ecosistema.fue_explorado = True
+
+        return lista_feedback
     
     def intercambio_de_recursos(self, ecosistema): 
         lista_feedback = [] # se almacenan las cantidades obtenidas para mostrarlas al usuario 
 
         for recurso in ecosistema.recursos:
-            recompensa = math.ceil(self.calcular_recompensa(recurso))
+            recompensa = math.ceil(self.__calcular_recompensa(recurso))
             self.sociedad.recursos[recurso.nombre].cantidad += recompensa
             lista_feedback.append({'recurso': recurso.nombre, 'cantidad': recompensa})
 
@@ -132,7 +132,7 @@ class Juego:
         
         # Obtener ecosistemas adyacentes y desbloquearlos 
         ecosistemas_adyacentes = self.obtener_puntos_adyacentes(self.mapa.matriz, ecosistema.coordenadas[0], ecosistema.coordenadas[1] )
-        self.desbloquear_ecosistemas_adyacentes(ecosistemas_adyacentes)
+        self.__desbloquear_ecosistemas_adyacentes(ecosistemas_adyacentes)
 
         # Crear un asentamiento 
         self.mapa.matriz[ecosistema.coordenadas[0]][ecosistema.coordenadas[1]] = Asentamiento('Asentamiento', [ecosistema.coordenadas[0], ecosistema.coordenadas[1]], ecosistemas_adyacentes)
@@ -160,13 +160,13 @@ class Juego:
 
         return puntos_adyacentes
     
-    def desbloquear_ecosistemas_adyacentes(self, lista_ecosistemas): 
+    def __desbloquear_ecosistemas_adyacentes(self, lista_ecosistemas): 
         ''' Al colonizar un lugar, se desbloquean todos los lugares adyacentes a el.'''
 
         for ecosistema in lista_ecosistemas: 
             self.explorar(ecosistema)
     
-    def obtener_recursos_pasivamente(self): 
+    def __obtener_recursos_pasivamente(self): 
         ''' AL colonizar un ecosistema, se obtiene el beneficio de obtener pasivamente de ellos en cada turno. '''
         for fila in self.mapa.matriz: 
             for lugar in fila: 
@@ -174,7 +174,7 @@ class Juego:
                     for ady in lugar.ecosistemas_adyacentes:
                         self.intercambio_de_recursos(ady)
 
-    def condiciones_game_over(self): 
+    def __condiciones_game_over(self): 
         ''' Se verifican las condiciones necesarias para perder el juego '''
         condiciones = cond_game_over(self.turno_juego, self.sociedad)
 

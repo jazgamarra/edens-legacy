@@ -1,4 +1,4 @@
-class Clima: 
+class ClimaEstacional: 
     ''' Las mecanicas del juego dependen del clima en el que se encuentran los ecosistemas. ''' 
     def __init__ (self):
         self.contador_clima = 0

@@ -1,19 +1,6 @@
 import math
-from Recursos.data import condiciones_mortalidad
+from Recursos.cond_mortalidad import condiciones_mortalidad
 from Modelos.recursos import Combustible, Comida, Herramienta
-
-class Sociedad: 
-    def __init__(self, raza):
-        self.raza = raza 
-        self.poblacion_actual = raza.poblacion_inicial 
-        self.clima 
-
-    def natalidad (self): 
-        return None 
-    
-    def mortalidad (self, clima_estacional):
-        return None 
-    
 
 class Sociedad: 
     def __init__(self, raza):

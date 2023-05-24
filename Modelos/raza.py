@@ -1,4 +1,5 @@
 from abc import ABCMeta 
+from Modelos.lugar import Bosque, Lago, ZonaDeCaza
 
 class Raza (metaclass=ABCMeta): 
     ''' Representa la raza de la poblacion. '''
