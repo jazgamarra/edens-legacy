@@ -34,10 +34,10 @@ class Combustible (Recurso):
     ''' Representa un recurso del juego. Se usa para prender fuego para cocinar o hacer fogatas en invierno. '''
 
     def __init__(self, ecosistema):
-        super().__init__(ecosistema, nombre='comida') 
+        super().__init__(ecosistema, nombre='combustible') 
 
 class Herramienta (Recurso): 
     ''' Representa un recurso del juego. Son herramientas para los exploradores. '''
 
     def __init__(self, ecosistema):
-        super().__init__(ecosistema, nombre='comida') 
+        super().__init__(ecosistema, nombre='herramienta') 

@@ -28,7 +28,6 @@ class Ecosistema (Lugar):
         self.recursos = recursos
         self.fue_explorado = False 
 
-    
 class Bosque (Ecosistema): 
     ''' Representa un ecosistema dentro del mapa.'''
 

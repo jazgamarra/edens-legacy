@@ -9,14 +9,9 @@ def condiciones_mortalidad (clima, comida, combustible):
             'retorno': 0.25
         }, {'condicion': clima == 'verano' and comida <= 0,
             'retorno': 0.2
+        }, {'condicion': True,
+            'retorno': 0.05
         }]
-
-mapa = [
-    ['B', 'L', 'C', 'B'],
-    ['C', 'B', 'L', 'C'],
-    ['B', 'L', 'C', 'B'],
-    ['C', 'B', 'L', 'C']
-] 
 
 indice_extraccion = {
     'comida': 

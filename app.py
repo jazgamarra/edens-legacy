@@ -10,13 +10,14 @@ mapa = Mapa()
 juego = Juego(sociedad, clima, mapa)
 
 while True: 
-    # Mostrar mapa y seleccionar lugar 
+    # Mostrar mapa y seleccionar lugar.
     juego.mostrar_mapa()
     lugar = juego.seleccionar_lugar() 
 
-    # Seleccionar accion a ejecutar 
-    print(lugar.nombre)
-    Juego.seleccionar_accion(input('Selecciona A si quieres explorar y 2 si quieres colonizar el lugar'), lugar)
+    # Se selecciona y ejecuta la accion.
+    juego.seleccionar_accion(input('Selecciona A si quieres explorar y 2 si quieres colonizar el lugar: '), lugar)
 
+    # Mostrar scores del turno. 
+    juego.mostrar_scores() 
     
 
