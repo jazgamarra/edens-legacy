@@ -1,5 +1,5 @@
 from abc import ABCMeta 
-from Modelos.lugar import Bosque, Lago, ZonaDeCaza
+from Modelo.lugar import Bosque, Lago, ZonaDeCaza
 
 class Raza (metaclass=ABCMeta): 
     ''' Representa la raza de la poblacion. '''
@@ -19,11 +19,11 @@ class Duende (Raza):
 
     def __init__(self):
         super().__init__(poblacion_inicial=25, 
-        objetivo_final='a traves de conquistar este mundo desconocido, conquistar tambien la inmortalidad para trascender a traves de la belleza. ', ecosistemas_amigables=['Lago', 'Bosque']) 
+        objetivo_final='conquistar la inmortalidad para trascender a traves de la belleza? ', ecosistemas_amigables=['Lago', 'Bosque']) 
 
 class Humano (Raza): 
     '''Representa una raza del juego. '''
         
     def __init__(self):
         super().__init__(poblacion_inicial=20, 
-        objetivo_final='reconquistar este mundo para volver a ser la gran raza que alguna vez fuimos. Recuperar el poder que nos ha quitado el eclipse.', ecosistemas_amigables=['Zona de caza']) 
+        objetivo_final='reconquistar este mundo para volver a ser la gran raza humana que alguna vez fueron', ecosistemas_amigables=['Zona de caza']) 

@@ -1,6 +1,6 @@
 import math
 from Recursos.cond_mortalidad import condiciones_mortalidad
-from Modelos.recursos import Combustible, Comida, Herramienta
+from Modelo.recursos import Combustible, Comida, Herramienta
 
 class Sociedad: 
     def __init__(self, raza):

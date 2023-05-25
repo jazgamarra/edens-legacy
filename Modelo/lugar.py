@@ -1,5 +1,5 @@
 from abc import ABCMeta 
-from Modelos.recursos import *
+from Modelo.recursos import *
 
 class Lugar (metaclass=ABCMeta): 
     ''' Representa un espacio en el mapa. '''

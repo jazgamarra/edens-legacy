@@ -1,4 +1,4 @@
-from Modelos.lugar import Bosque, ZonaDeCaza, Lago
+from Modelo.lugar import Bosque, ZonaDeCaza, Lago
 
 class Mapa(): 
     def __init__(self):
