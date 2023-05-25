@@ -30,12 +30,14 @@ Almacena la logica de la entrada y salida de datos
 
 --- 
 ## Notas 
-- En esta version del proyecto no se implementaron todas las razas y ecosistemas por cuestion de tiempo, pero las mismas fueron planteadas a la hora de estructurar las clases que corresponden a la creacion de la misma. 
-- Por la misma razon no se implemento la funcion de seleccionar la raza, el demo usa una raza predeterminada. 
+Los siguientes puntos no se pudieron implementar en esta version del proyecto por cuestiones de tiempo pero se plantearon a la hora de estructurar el proyecto y se agregaran para la presentacion final. 
+-  No se implementaron todas las razas y ecosistemas, se limitaron a 2 razas y 3 ecosistemas. 
+-  Aun no se puede seleccionar la raza antes de iniciar el juego, el demo usa la raza 'duende' como predeterminada 
+-  No se aplican las reglas de consumo per capita en cada turno 
+-  No se aplican los beneficios por afinidad con el ecosistema 
 
 --- 
 ## Datos 
 Jazmin Gamarra 
-
 
 jazgamarra@fpuna.edu.py
