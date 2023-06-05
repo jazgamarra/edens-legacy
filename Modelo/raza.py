@@ -11,7 +11,7 @@ class Raza (metaclass=ABCMeta):
 
     def verificar_ecosistema (self, ecosistema): 
         ''' Verifica si un ecosistema dado es amigable o no con la raza. Retorna un valor boolean. '''
-        return ecosistema in self.ecosistemas_amigables
+        return ecosistema in self.ecosistemas_amigables 
 
     
 class Duende (Raza): 

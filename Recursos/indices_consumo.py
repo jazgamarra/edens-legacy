@@ -1,13 +1,13 @@
 def definir_indices_consumo(clima): 
     indices = {
         'verano': {
-            'comida': 5, 
-            'combustible': 1,
-            'herramienta': 3 
+            'comida': 2, 
+            'combustible': 1.5,
+            'herramienta': 2 
         }, 
         'invierno': {
-            'comida': 4, 
-            'combustible': 3,
+            'comida': 3, 
+            'combustible': 2,
             'herramienta': 1 
         }
     }

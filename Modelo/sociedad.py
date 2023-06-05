@@ -34,7 +34,11 @@ class Sociedad:
         indices_consumo = definir_indices_consumo(clima)
 
         for recurso, indice in indices_consumo.items(): 
-            self.recursos[recurso] -= (indice * self.poblacion_actual) 
+            self.recursos[recurso].cantidad -= (indice * self.poblacion_actual) 
+
+            if self.recursos[recurso].cantidad < 0: 
+                 self.recursos[recurso].cantidad = 0
+            
 
 
 

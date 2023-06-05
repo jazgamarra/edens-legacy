@@ -77,7 +77,7 @@ class EntradaSalida():
         print('Comida:', self.juego.sociedad.recursos['comida'].cantidad)
         print('Combustible:', self.juego.sociedad.recursos['combustible'].cantidad)
         print('Herramientas:', self.juego.sociedad.recursos['herramienta'].cantidad)
-        print('Turno::', self.juego.turno_juego)
+        print('Turno:', self.juego.turno_juego)
         print('Clima Estacional:', self.juego.clima.estacion_actual)
         
 

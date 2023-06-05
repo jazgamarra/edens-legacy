@@ -29,6 +29,7 @@ while not juego.condiciones_game_over():
     vista.mostrar_scores() 
     
     # Se esperara 5 segundos para limpiar la pantalla
+    print('\n\nEspere para continuar... ')
     time.sleep(5)
     os.system('clear')
 

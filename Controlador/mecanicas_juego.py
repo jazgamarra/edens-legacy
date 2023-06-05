@@ -16,13 +16,12 @@ class Juego:
 
     def gestionar_turno (self): 
         ''' Gestiona las reglas que se aplican en cada turno. '''
-        
         self.turno_juego += 1 # se suma un turno mas al juego 
         self.clima.gestionar_clima(self.turno_juego) # se verifica si hubo un cambio de estacion 
         self.sociedad.censar_poblacion(self.clima.estacion_actual) # se aplican reglas de natalidad y mortalidad 
+        self.sociedad.consumo_per_capita(self.clima.estacion_actual) # reglas de consumo per capita 
         self.__obtener_recursos_pasivamente() # se obtienen recursos de los ecosistemas adyacentes a las ciudades 
     
-
    
     def __calcular_recompensa(self, recurso): 
         ''' Calcula la recompensa por recurso en base al indice de extraccion y la cantidad de poblacion que exista '''
@@ -32,8 +31,8 @@ class Juego:
     def reglas_del_mundo(func):
         ''' Al seleccionar explorar o colonizar, se usa un turno y por ende se aplican las reglas del mundo, indicadas en la funcion 'gestionar turno'. El proposito del decorador es ejecutar las reglas inmediatamente despues de explorar o colonizar. '''
         def wrapper(self, ecosistema):
-            self.gestionar_turno()  # Llamada a la función gestionar_turno antes de ejecutar la función original
-            result = func(self, ecosistema)  # Ejecución de la función original
+            self.gestionar_turno()  # llamada a la función gestionar_turno antes de ejecutar la función original
+            result = func(self, ecosistema)  # ejecución de la función original
             return result
         return wrapper
 
@@ -41,7 +40,7 @@ class Juego:
     def explorar (self, ecosistema): 
         ''' Permite desbloquear una zona y obtener recursos de ella ''' 
 
-        # Intercambio de recursos entre el ecosistema y la sociedad 
+        # intercambio de recursos entre el ecosistema y la sociedad 
         lista_feedback = self.intercambio_de_recursos(ecosistema) 
 
         ecosistema.fue_explorado = True
@@ -49,11 +48,16 @@ class Juego:
         return lista_feedback
     
     def intercambio_de_recursos(self, ecosistema): 
+        ''' Se realiza el intercambio de recursos. '''
         lista_feedback = [] # se almacenan las cantidades obtenidas para mostrarlas al usuario 
 
+        # se da el 10% mas de recursos a razas en donde existe afinidad
+        porcentaje_de_extraccion = 1.1 if self.sociedad.raza.verificar_ecosistema(ecosistema.nombre) else 1 
+
         for recurso in ecosistema.recursos:
-            recompensa = math.ceil(self.__calcular_recompensa(recurso))
+            recompensa = math.ceil(self.__calcular_recompensa(recurso) * porcentaje_de_extraccion)
             self.sociedad.recursos[recurso.nombre].cantidad += recompensa
+            
             lista_feedback.append({'recurso': recurso.nombre, 'cantidad': recompensa})
 
         return lista_feedback 
