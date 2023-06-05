@@ -34,7 +34,7 @@ Los siguientes puntos no se pudieron implementar en esta version del proyecto po
 -  No se implementaron todas las razas y ecosistemas, se limitaron a 2 razas y 3 ecosistemas. 
 -  Aun no se puede seleccionar la raza antes de iniciar el juego, el demo usa la raza 'duende' como predeterminada 
 -  No se aplican las reglas de consumo per capita en cada turno 
--  No se aplican los beneficios por afinidad con el ecosistema 
+-  No se aplican los beneficios por afinidad con el ecosistema
 
 --- 
 ## Datos 

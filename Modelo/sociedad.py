@@ -1,5 +1,6 @@
 import math
 from Recursos.cond_mortalidad import condiciones_mortalidad
+from Recursos.indices_consumo import definir_indices_consumo
 from Modelo.recursos import Combustible, Comida, Herramienta
 
 class Sociedad: 
@@ -28,4 +29,14 @@ class Sociedad:
                 break
         return self.poblacion_actual * indice 
 
-    
+    def consumo_per_capita(self, clima):
+        ''' Se resta el consumo de recursos por persona en cada turno. '''
+        indices_consumo = definir_indices_consumo(clima)
+
+        for recurso, indice in indices_consumo.items(): 
+            self.recursos[recurso] -= (indice * self.poblacion_actual) 
+
+
+
+
+        
