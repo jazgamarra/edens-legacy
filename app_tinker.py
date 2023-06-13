@@ -1,8 +1,16 @@
-from Vista.widgets import * 
+from Vista.interfaz_inicial import * 
+from Vista.ciclo_del_juego import * 
  
-i = Interfaz() 
+i = InterfazInicial() 
 
+# Vistas iniciales 
+i.pantalla_de_inicio() 
+i.elegir_raza()
+i.presentacion_del_juego()
 
-i.pantalla_de_inicio()
+# Se inicializa el ciclo del juego 
+ciclo = CicloDelJuego(i)
+ 
+ciclo.mostrar_mapa() 
 
 i.root.mainloop()

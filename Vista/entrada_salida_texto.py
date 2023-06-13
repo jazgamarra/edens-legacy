@@ -1,3 +1,8 @@
+'''
+Este modulo corresponde a la vista orientada a texto. 
+Algunas funciones fueron reutilizadas y otras seran descontinuadas 
+'''
+
 from colorama import Fore
 from Modelo.raza import Humano, Duende
 
