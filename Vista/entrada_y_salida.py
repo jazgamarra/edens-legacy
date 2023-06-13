@@ -1,4 +1,5 @@
 from colorama import Fore
+from Modelo.raza import Humano, Duende
 
 class EntradaSalida(): 
     def __init__(self, juego):
@@ -80,5 +81,11 @@ class EntradaSalida():
         print('Turno:', self.juego.turno_juego)
         print('Clima Estacional:', self.juego.clima.estacion_actual)
         
-
+    def definir_raza(self, raza_str): 
+        if raza_str == 'duende': 
+            print('Se definio la raza', raza_str)
+            return Duende() 
+        elif raza_str == 'humano': 
+            print('Se definio la raza', raza_str)
+            return Humano() 
 

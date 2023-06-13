@@ -10,7 +10,7 @@ from Vista.entrada_y_salida import EntradaSalida
 
 # Se crean los objetos que interactuaran en el juego 
 clima = ClimaEstacional() 
-sociedad = Sociedad(Duende()) 
+sociedad = Sociedad(Duende())  
 mapa = Mapa()
 juego = Juego(sociedad, clima, mapa)
 vista = EntradaSalida(juego)
