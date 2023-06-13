@@ -46,5 +46,10 @@ class ZonaDeCaza (Ecosistema):
         super().__init__(nombre='Zona de caza', coordenadas=coordenadas, recursos=[Comida('Zona de caza'), Combustible('Zona de caza')],  codigo='CAZA')
 
 
+class Montanha (Ecosistema): 
+    ''' Representa un ecosistema dentro del mapa.'''
+    
+    def __init__(self, coordenadas):
+        super().__init__(nombre='Montanha', coordenadas=coordenadas, recursos=[Herramienta('Montanha'), Combustible('Zona de caza')], codigo='MONT')
 
 
