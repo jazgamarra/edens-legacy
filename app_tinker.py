@@ -3,7 +3,7 @@ from Vista.interfaz_inicial import *
 i = InterfazInicial() 
 
 # Vistas iniciales 
-i.pantalla_de_inicio() 
+i.pantalla_de_inicio()
 i.elegir_raza()
 i.presentacion_del_juego()
 
