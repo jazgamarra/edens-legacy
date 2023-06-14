@@ -1,9 +1,9 @@
 from tkinter import * 
-from static.paleta_de_colores import * 
+from Vista.paleta_de_colores import * 
 from Modelo.clima_estacional import ClimaEstacional 
 from Controlador.mecanicas_juego import Juego 
 from Modelo.mapa import Mapa
-from Vista.entrada_salida_texto import EntradaSalida
+from Vista.vista_orientada_a_texto import EntradaSalida
 import tkinter.messagebox as messagebox 
 from Modelo.sociedad import * 
 

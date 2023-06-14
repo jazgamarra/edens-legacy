@@ -1,6 +1,6 @@
 from Modelo.lugar import Bosque, ZonaDeCaza, Lago
 from tkinter import Button
-from static.paleta_de_colores import * 
+from Vista.paleta_de_colores import * 
 
 class Mapa(): 
     def __init__(self):

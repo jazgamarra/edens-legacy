@@ -1,4 +1,4 @@
-from Vista.interfaz_inicial import * 
+from Vista.vista_con_tkinter import * 
  
 i = InterfazInicial() 
 
