@@ -89,7 +89,7 @@ class InterfazInicial():
             button.pack_forget()
 
         # Logo 
-        img = ImageTk.PhotoImage(Image.open('static/logo2.png').resize((600, 300))) 
+        img = ImageTk.PhotoImage(Image.open('logo2.png').resize((600, 300))) 
         logo_frame = LabelFrame(self.root, pady=185, bg=azul_marino, border=0)
         label = Label(logo_frame, text='Eden\'s Legacy', font=('Roboto Cn', 36))
         img_container = Label(logo_frame, image=img, bg=azul_marino)
