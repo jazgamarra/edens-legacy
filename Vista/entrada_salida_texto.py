@@ -18,7 +18,7 @@ class EntradaSalida():
         coordenadas = self.__procesar_input(input(''))
         return self.juego.mapa.matriz[coordenadas['x']][coordenadas['y']]
     
-            
+             
     def __procesar_input(self, entrada):
         ''' Procesa la entrada del usuario, retornando el lugar que corresponda a esa posicion ''' 
 
@@ -86,11 +86,4 @@ class EntradaSalida():
         print('Turno:', self.juego.turno_juego)
         print('Clima Estacional:', self.juego.clima.estacion_actual)
         
-    def definir_raza(self, raza_str): 
-        if raza_str == 'duende': 
-            print('Se definio la raza', raza_str)
-            return Duende() 
-        elif raza_str == 'humano': 
-            print('Se definio la raza', raza_str)
-            return Humano() 
-
+   

@@ -2,6 +2,7 @@ import math
 import time 
 from colorama import Fore
 from Modelo.lugar import Asentamiento 
+from Modelo.raza import * 
 from Recursos.cond_game_over import cond_game_over 
 
 class Juego: 
@@ -135,9 +136,14 @@ class Juego:
 
         return self.game_over
 
+    def definir_raza(raza_str): 
+        ''' Define la raza del jugador dependiendo de su seleccion. '''
+        if raza_str == 'duende': 
+            return Duende() 
+        elif raza_str == 'humano': 
+            return Humano()  
 
         
-            
       
 
             
