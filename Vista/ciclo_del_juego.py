@@ -1,7 +1,7 @@
 from Modelo.lugar import * 
 from tkinter import * 
 from static.paleta_de_colores import * 
-
+import tkinter.messagebox as messagebox 
 
 
 class CicloDelJuego: 
@@ -13,19 +13,40 @@ class CicloDelJuego:
         self.vista = interfaz_inicial.vista
         self.root = interfaz_inicial.root 
         self.lugar_seleccionado = None 
-        self_accion_seleccionada = None 
+        self.accion_seleccionada = None 
 
     def realizar_seleccion(self): 
+        ''' Permite seleccionar los parametros necesarios para realizar una accion en el juego. '''
 
         def seleccionar_lugar(x,y): 
+            ''' Seleccionar un lugar para realizar la accion'''
             label_lugar_seleccionado['text'] = f'Seleccionaste el lugar {x},{y}'
             self.lugar_seleccionado = self.mapa.matriz[x][y]
 
+        def seleccionar_accion(accion): 
+            ''' Seleccionar la accion a realizar '''
+            self.accion_seleccionada = accion
+
+        def ejecucion():
+            ''' Se encarga de llamar a los metodos para realizar las acciones segun los parametros dados '''
+            if self.accion_seleccionada and self.lugar_seleccionado: 
+                # Llamar a las funciones depediendo de la accion que se haya seleccionado 
+                if self.accion_seleccionada == 'explorar': 
+                    self.juego.explorar(self.lugar_seleccionado)
+                elif self.accion_seleccionada == 'colonizar':
+                    self.juego.colonizar(self.lugar_seleccionado)
+            else: 
+                messagebox.showwarning('Error', 'Debes seleccionar un lugar y una accion antes de continuar.')
+
+            # limpiar ventana 
+            frame.grid_forget()
+            frame_accion.pack_forget()
+
         # Definir el frame 
-        frame = Frame(self.root, border=0, pady=50, bg=azul_marino)
+        frame = Frame(self.root, border=0, pady=20, bg=azul_marino)
 
         # Titulo 
-        Label(frame, text='    Selecciona el lugar:', fg=crema, bg=azul_marino, font=('Roboto Cn', 22), pady=20).grid(row=0, column=0, columnspan=5) 
+        Label(frame, text='    Selecciona el lugar:', fg=crema, bg=azul_marino, font=('Roboto Cn', 22), pady=20).grid(row=0, column=0, columnspan=7) 
         
         # Mapa  
         Button(frame, text='00', padx=40, pady=20, bg=verde, fg=crema, command=lambda: seleccionar_lugar(0,0)).grid(row=1, column=0) 
@@ -45,8 +66,31 @@ class CicloDelJuego:
         Button(frame, text='32', padx=40, pady=20, bg=verde, fg=crema, command=lambda: seleccionar_lugar(3,2)).grid(row=4, column=2)
         Button(frame, text='33', padx=40, pady=20, bg=verde, fg=crema, command=lambda: seleccionar_lugar(3,3)).grid(row=4, column=3)
 
+        # Mostrar el lugar seleccionado 
+        label_lugar_seleccionado = Label(frame, text='Aun no seleccionaste ningun lugar...', bg=azul_marino, fg=crema, font=('Roboto Cn', 12))
+        label_lugar_seleccionado.grid(row=5, column=0, pady=20, columnspan=7)
+        frame.pack()              
 
-        label_lugar_seleccionado = Label(frame, text='Aun no seleccionaste ningun lugar...', bg=azul_marino)
-        label_lugar_seleccionado.grid(row=5, column=0, pady=20, columnspan=5)
-        frame.pack()             
+        # Seleccionar acciones 
+        frame_accion = Frame(self.root, border=0, bg=azul_marino)
+        frame_accion.pack()
+
+        Label(frame_accion, text='    Selecciona una accion:', fg=crema, bg=azul_marino, font=('Roboto Cn', 22), pady=20, padx=50).pack()
+        
+        # Botones de acciones 
+        Button(frame_accion, text=' Explorar', padx=15, pady=5, bg=crema, fg=verde, font=('Roboto Cn', 14), command=lambda: seleccionar_accion('explorar'), width=10).pack(pady=10) 
+        Button(frame_accion, text='Colonizar', padx=15, pady=5, bg=crema, fg=verde, font=('Roboto Cn', 14), command=lambda: seleccionar_accion('colonizar'), width=10).pack(pady=10)
+
+        Button(frame_accion, text='Listo!', padx=15, pady=10, bg=verde, fg=crema, font=('Roboto Cn', 16), command=ejecucion, width=30).pack(pady=10)
+
+    def mostrar_feedback_del_turno(self): 
+        frame = Frame(self.root, border=0, pady=20, bg=azul_marino)
+        Label(frame, text='Aqui pondre el feedback', fg=crema, bg=azul_marino, font=('Roboto Cn', 22), pady=20).grid(row=0, column=0, columnspan=7) 
+
+
+        
+
+
+
+
 

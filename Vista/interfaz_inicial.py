@@ -48,9 +48,9 @@ class InterfazInicial:
     def elegir_raza(self): 
         ''' Seleccionar la raza a la que se pertenecera '''
         def definir_raza(raza): 
+            self.sociedad = self.vista.definir_raza(raza) 
             self.juego = Juego(self.sociedad, self.clima, self.mapa)
             self.vista = EntradaSalida(self.juego)
-            self.juego.sociedad = self.vista.definir_raza(raza) 
 
         def cambiar_ventana(raza): 
             definir_raza(raza)
