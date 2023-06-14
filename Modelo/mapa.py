@@ -1,4 +1,6 @@
 from Modelo.lugar import Bosque, ZonaDeCaza, Lago
+from tkinter import Button
+from static.paleta_de_colores import * 
 
 class Mapa(): 
     def __init__(self):
@@ -9,7 +11,4 @@ class Mapa():
         [ZonaDeCaza([3, 0]), Bosque([3, 1]), Lago([3, 2]), ZonaDeCaza([3, 3])]
         ]
 
-    # aqui se agregaran las funciones de generacion de mundo en proximas versiones :) 
-    
-    
-        
+

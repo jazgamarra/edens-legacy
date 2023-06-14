@@ -1,5 +1,4 @@
 from Vista.interfaz_inicial import * 
-from Vista.ciclo_del_juego import * 
  
 i = InterfazInicial() 
 

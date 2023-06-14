@@ -13,7 +13,7 @@ class InterfazInicial():
     def __init__ (self): 
         self.clima = ClimaEstacional() 
         self.sociedad = None
-        self.mapa = Mapa()
+        self.mapa = Mapa() 
         self.juego = None
         self.vista = None
         self.root = Tk() 
@@ -132,8 +132,52 @@ class InterfazInicial():
                 elif self.accion_seleccionada == 'colonizar':
                     self.juego.colonizar(self.lugar_seleccionado)
                 self.mostrar_scores_del_juego()
+                self.lugar_seleccionado = None 
+                self.accion_seleccionada = None 
             else: 
                 messagebox.showwarning('Error', 'Debes seleccionar un lugar y una accion antes de continuar.')
+
+        def mostrar_mapa():
+            ''' Genera el mapa interactivo que se mostrara al usuario para seleccionar el lugar '''
+            
+            botones = [
+                Button(frame, text='00', padx=40, pady=20, bg=verde, fg=crema, command=lambda: seleccionar_lugar(0,0)),
+                Button(frame, text='01', padx=40, pady=20, bg=verde, fg=crema, command=lambda: seleccionar_lugar(0,1)), 
+                Button(frame, text='02', padx=40, pady=20, bg=verde, fg=crema, command=lambda: seleccionar_lugar(0,2)), 
+                Button(frame, text='03', padx=40, pady=20, bg=verde, fg=crema, command=lambda: seleccionar_lugar(0,3)), 
+                Button(frame, text='10', padx=40, pady=20, bg=verde, fg=crema, command=lambda: seleccionar_lugar(1,0)),
+                Button(frame, text='11', padx=40, pady=20, bg=verde, fg=crema, command=lambda: seleccionar_lugar(1,1)),
+                Button(frame, text='12', padx=40, pady=20, bg=verde, fg=crema, command=lambda: seleccionar_lugar(1,2)),
+                Button(frame, text='13', padx=40, pady=20, bg=verde, fg=crema, command=lambda: seleccionar_lugar(1,3)),
+                Button(frame, text='20', padx=40, pady=20, bg=verde, fg=crema, command=lambda: seleccionar_lugar(2,0)),
+                Button(frame, text='21', padx=40, pady=20, bg=verde, fg=crema, command=lambda: seleccionar_lugar(2,1)),
+                Button(frame, text='22', padx=40, pady=20, bg=verde, fg=crema, command=lambda: seleccionar_lugar(2,2)),
+                Button(frame, text='23', padx=40, pady=20, bg=verde, fg=crema, command=lambda: seleccionar_lugar(2,3)),
+                Button(frame, text='30', padx=40, pady=20, bg=verde, fg=crema, command=lambda: seleccionar_lugar(3,0)),
+                Button(frame, text='31', padx=40, pady=20, bg=verde, fg=crema, command=lambda: seleccionar_lugar(3,1)),
+                Button(frame, text='32', padx=40, pady=20, bg=verde, fg=crema, command=lambda: seleccionar_lugar(3,2)),
+                Button(frame, text='33', padx=40, pady=20, bg=verde, fg=crema, command=lambda: seleccionar_lugar(3,3))
+            ]
+
+            posiciones = [[1, 0],[1, 1],  [1, 2],  [1, 3],  [2, 0],  [2, 1],  [2, 2],  [2, 3],  [3, 0],  [3, 1],  [3, 2],  [3, 3],  [4, 0],  [4, 1],  [4, 2],  [4, 3] ]
+
+            for i in range(16): 
+                ecosistema = self.mapa.matriz[i // 4 ][i % 4] 
+                if ecosistema.fue_explorado: 
+                    boton = botones[i]
+                    boton['text'] = ecosistema.codigo
+                    boton['bg'] = verde 
+                elif ecosistema.fue_colonizado: 
+                    boton = botones[i]
+                    boton['text'] = ecosistema.codigo
+                    boton['bg'] = azul_marino
+                else: 
+                    boton = botones[i]
+                    boton['text'] = 'XXXXX'
+                    boton['bg'] = crema
+                    boton['fg'] = azul_marino
+
+                boton.grid(row=posiciones[i][0], column=posiciones[i][1], pady=2, padx=2)  
 
         # Definir el frame 
         frame = Frame(self.root, border=0, pady=20, bg=azul_marino)
@@ -142,23 +186,8 @@ class InterfazInicial():
         Label(frame, text='    Selecciona el lugar:', fg=crema, bg=azul_marino, font=('Roboto Cn', 22), pady=20).grid(row=0, column=0, columnspan=7) 
         
         # Mapa  
-        Button(frame, text='00', padx=40, pady=20, bg=verde, fg=crema, command=lambda: seleccionar_lugar(0,0)).grid(row=1, column=0) 
-        Button(frame, text='01', padx=40, pady=20, bg=verde, fg=crema, command=lambda: seleccionar_lugar(0,1)).grid(row=1, column=1) 
-        Button(frame, text='02', padx=40, pady=20, bg=verde, fg=crema, command=lambda: seleccionar_lugar(0,2)).grid(row=1, column=2) 
-        Button(frame, text='03', padx=40, pady=20, bg=verde, fg=crema, command=lambda: seleccionar_lugar(0,3)).grid(row=1, column=3) 
-        Button(frame, text='10', padx=40, pady=20, bg=verde, fg=crema, command=lambda: seleccionar_lugar(1,0)).grid(row=2, column=0)
-        Button(frame, text='11', padx=40, pady=20, bg=verde, fg=crema, command=lambda: seleccionar_lugar(1,1)).grid(row=2, column=1)
-        Button(frame, text='12', padx=40, pady=20, bg=verde, fg=crema, command=lambda: seleccionar_lugar(1,2)).grid(row=2, column=2)
-        Button(frame, text='13', padx=40, pady=20, bg=verde, fg=crema, command=lambda: seleccionar_lugar(1,3)).grid(row=2, column=3)
-        Button(frame, text='20', padx=40, pady=20, bg=verde, fg=crema, command=lambda: seleccionar_lugar(2,0)).grid(row=3, column=0)
-        Button(frame, text='21', padx=40, pady=20, bg=verde, fg=crema, command=lambda: seleccionar_lugar(2,1)).grid(row=3, column=1)
-        Button(frame, text='22', padx=40, pady=20, bg=verde, fg=crema, command=lambda: seleccionar_lugar(2,2)).grid(row=3, column=2)
-        Button(frame, text='23', padx=40, pady=20, bg=verde, fg=crema, command=lambda: seleccionar_lugar(2,3)).grid(row=3, column=3)
-        Button(frame, text='30', padx=40, pady=20, bg=verde, fg=crema, command=lambda: seleccionar_lugar(3,0)).grid(row=4, column=0)
-        Button(frame, text='31', padx=40, pady=20, bg=verde, fg=crema, command=lambda: seleccionar_lugar(3,1)).grid(row=4, column=1)
-        Button(frame, text='32', padx=40, pady=20, bg=verde, fg=crema, command=lambda: seleccionar_lugar(3,2)).grid(row=4, column=2)
-        Button(frame, text='33', padx=40, pady=20, bg=verde, fg=crema, command=lambda: seleccionar_lugar(3,3)).grid(row=4, column=3)
-
+        mostrar_mapa()
+    
         # Mostrar el lugar seleccionado 
         label_lugar_seleccionado = Label(frame, text='Aun no seleccionaste ningun lugar...', bg=azul_marino, fg=crema, font=('Roboto Cn', 12))
         label_lugar_seleccionado.grid(row=5, column=0, pady=20, columnspan=7)
@@ -205,7 +234,11 @@ class InterfazInicial():
         Button(frame_feedback, text='Continuar', padx=15, pady=10, bg=crema, fg=verde, font=('Roboto Cn', 14), command=cambiar_ventana, width=20).pack(pady=30)
 
     def mostrar_scores_del_juego(self): 
+        ''' En cada turno se muestran como van las puntuaciones del juego'''
+
         def cambiar_ventana(): 
+            ''' Acciones a realizar en el momento de cambiar de vista. '''
+
             frame_scores.destroy()
 
             # Antes de repetir el ciclo, verificar si el juego no se ha terminado
