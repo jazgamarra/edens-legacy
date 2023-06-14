@@ -19,4 +19,4 @@ class ClimaEstacional:
                 return nueva_estacion
             return estacion_actual
 
-        return modificar_estacion(3, 'invierno', 'verano') if self.estacion_actual == 'verano' else modificar_estacion(2, 'verano', 'invierno') 
+        return modificar_estacion(3, 'invierno', 'verano') if self.estacion_actual == 'verano' else modificar_estacion(2, 'verano', 'invierno')      

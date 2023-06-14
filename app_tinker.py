@@ -11,6 +11,6 @@ i.presentacion_del_juego()
 # Se inicializa el ciclo del juego 
 ciclo = CicloDelJuego(i)
  
-ciclo.mostrar_mapa() 
+ciclo.realizar_seleccion() 
 
 i.root.mainloop()

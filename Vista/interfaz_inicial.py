@@ -1,6 +1,6 @@
 from tkinter import * 
 from PIL import ImageTk, Image 
-from Vista.paleta_de_colores import * 
+from static.paleta_de_colores import * 
 from colorama import Fore
 from Modelo.clima_estacional import ClimaEstacional 
 from Controlador.mecanicas_juego import Juego 
@@ -32,7 +32,7 @@ class InterfazInicial:
 
         # Cambiar el color del fondo 
         self.root.configure(bg=azul_marino)
-        frame = LabelFrame(self.root, pady=200, bg=azul_marino, border=0)
+        frame = LabelFrame(self.root, pady=230, bg=azul_marino, border=0)
 
         # Texto 
         Label(frame, text='''Sumérgete en cada turno en un cautivador escenario visual, donde tendrás la\ntarea de elegir sabiamente tu próximo destino y la acción a emprender. \nDeliberadamente decidirás entre explorar con valentía o colonizar con astucia \ndiversos ecosistemas, persiguiendo así la preciada adquisición de recursos vitales.''',  font=('Arial', 14), bg=azul_marino, fg=crema).pack() 

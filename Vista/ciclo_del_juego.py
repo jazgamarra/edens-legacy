@@ -1,12 +1,8 @@
 from Modelo.lugar import * 
 from tkinter import * 
+from static.paleta_de_colores import * 
 
-matriz =  [
-        [Bosque([0, 0]), Lago([0, 1]), ZonaDeCaza([0, 2]), Bosque([0, 3])],
-        [ZonaDeCaza([1, 0]), Bosque([1, 1]), Lago([1, 2]), ZonaDeCaza([1, 3])],
-        [Bosque([2, 0]), Lago([2, 1]), ZonaDeCaza([2, 2]), Bosque([2, 3])],
-        [ZonaDeCaza([3, 0]), Bosque([3, 1]), Lago([3, 2]), ZonaDeCaza([3, 3])]
-        ]
+
 
 class CicloDelJuego: 
     def __init__(self, interfaz_inicial):
@@ -16,10 +12,31 @@ class CicloDelJuego:
         self.juego = interfaz_inicial.juego
         self.vista = interfaz_inicial.vista
         self.root = interfaz_inicial.root 
+        self.lugar_seleccionado = None 
+        self_accion_seleccionada = None 
+
+    def realizar_seleccion(self): 
+        def seleccionar_lugar(x,y): 
+            self.lugar_seleccionado = self.mapa.matriz[x][y]
+            print(self.lugar_seleccionado)
+
+            Label(frame, text=f'Seleccionaste el lugar {x}, {y}. ').grid(column=0, row=10, columnspan=4)
 
 
-    def mostrar_mapa(self): 
-        for fila in matriz:
+
+
+        frame = Frame(self.root, border=0, pady=50, bg=azul_marino)
+
+        Label(frame, text='           Selecciona el lugar:', fg=crema, bg=azul_marino, font=('Roboto Cn', 22), pady=20).grid(row=0, column=0, columnspan=3) 
+        
+        # Mostrar la matriz 
+        for fila in self.mapa.matriz:
             for ecosistema in fila:
-                Button(self.root, text=ecosistema.codigo, padx=40, pady=20, bg='violet', fg='purple').pack()
+                boton=Button(frame, text=ecosistema.codigo, padx=40, pady=20, bg=verde, fg=crema, 
+                             command=lambda: seleccionar_lugar((ecosistema.coordenadas[0]), (ecosistema.coordenadas[1])))
+                
+                boton.grid(row=ecosistema.coordenadas[0]+1, column=ecosistema.coordenadas[1]) 
+
+        frame.pack()
+
 
