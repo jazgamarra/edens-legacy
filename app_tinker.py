@@ -9,10 +9,6 @@ i.elegir_raza()
 i.presentacion_del_juego()
 
 # Se inicializa el ciclo del juego 
-print('obj', i.juego)
-
-ciclo = CicloDelJuego(i)
- 
-ciclo.realizar_seleccion() 
+i.realizar_seleccion() 
 
 i.root.mainloop()

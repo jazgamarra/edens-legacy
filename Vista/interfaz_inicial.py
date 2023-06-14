@@ -7,18 +7,9 @@ from Controlador.mecanicas_juego import Juego
 from Modelo.mapa import Mapa
 from Vista.entrada_salida_texto import EntradaSalida
 import tkinter.messagebox as messagebox 
+from Modelo.sociedad import * 
 
-class Interfaz: 
-    def __init__ (self): 
-        self.clima = None 
-        self.sociedad = None
-        self.mapa = None
-        self.juego = None
-        self.vista = None
-        self.root = None
-
-
-class InterfazInicial(Interfaz): 
+class InterfazInicial(): 
     def __init__ (self): 
         self.clima = ClimaEstacional() 
         self.sociedad = None
@@ -26,6 +17,10 @@ class InterfazInicial(Interfaz):
         self.juego = None
         self.vista = None
         self.root = Tk() 
+
+        self.lugar_seleccionado = None 
+        self.accion_seleccionada = None 
+        self.feedback = None 
 
         self.inicializar_interfaz()
 
@@ -59,14 +54,15 @@ class InterfazInicial(Interfaz):
     def elegir_raza(self): 
         ''' Seleccionar la raza a la que se pertenecera '''
         def definir_raza(raza): 
-            self.sociedad = Juego.definir_raza(raza) 
+            self.sociedad = Sociedad(Juego.definir_raza(raza) )
             self.juego = Juego(self.sociedad, self.clima, self.mapa) 
             self.vista = EntradaSalida(self.juego)
             print(self.juego)
 
         def cambiar_ventana(raza): 
+            ''' Se limpia la pantalla y se llama a la siguiente funcion del ciclo '''
+            frame.destroy()
             definir_raza(raza)
-            frame.pack_forget()
 
         self.root.configure(bg=azul_marino) 
 
@@ -84,7 +80,6 @@ class InterfazInicial(Interfaz):
         # Boton duende 
         Button(frame, text='duende', padx=15, pady=10, bg=verde, fg=crema, 
                     font=('Roboto Cn', 16), command=lambda: cambiar_ventana('duende'), width=30).pack(pady=50) 
-    
 
 
     def pantalla_de_inicio(self): 
@@ -108,20 +103,8 @@ class InterfazInicial(Interfaz):
         logo_frame.pack()
         img_container.pack()
         button.pack() 
-
-
-
-class CicloDelJuego: 
-    def __init__(self, interfaz_inicial):
-        self.clima = interfaz_inicial.clima
-        self.sociedad = interfaz_inicial.sociedad
-        self.mapa = interfaz_inicial.mapa
-        self.juego = interfaz_inicial.juego 
-        self.vista = interfaz_inicial.vista
-        self.root = interfaz_inicial.root 
-
         
-
+    
     def realizar_seleccion(self): 
         ''' Permite seleccionar los parametros necesarios para realizar una accion en el juego. '''
 
@@ -134,21 +117,23 @@ class CicloDelJuego:
             ''' Seleccionar la accion a realizar '''
             self.accion_seleccionada = accion
 
+        def cambiar_ventana(): 
+            frame.destroy()
+            frame_accion.destroy()
+
         def ejecucion():
             ''' Se encarga de llamar a los metodos para realizar las acciones segun los parametros dados '''
             if self.accion_seleccionada and self.lugar_seleccionado: 
+                cambiar_ventana()
                 # Llamar a las funciones depediendo de la accion que se haya seleccionado 
                 if self.accion_seleccionada == 'explorar': 
-                    print(self.juego)
                     self.feedback = self.juego.explorar(self.lugar_seleccionado)
+                    self.mostrar_feedback_del_turno(self.lugar_seleccionado)
                 elif self.accion_seleccionada == 'colonizar':
                     self.juego.colonizar(self.lugar_seleccionado)
-
-                # limpiar ventana 
-                frame.grid_forget()
-                frame_accion.pack_forget()
+                self.mostrar_scores_del_juego()
             else: 
-                messagebox.showwarning('Error', 'Debes seleccionar un lugar y una accion antes de continuar.')           
+                messagebox.showwarning('Error', 'Debes seleccionar un lugar y una accion antes de continuar.')
 
         # Definir el frame 
         frame = Frame(self.root, border=0, pady=20, bg=azul_marino)
@@ -188,17 +173,68 @@ class CicloDelJuego:
         # Botones de acciones 
         Button(frame_accion, text=' Explorar', padx=15, pady=5, bg=crema, fg=verde, font=('Roboto Cn', 14), command=lambda: seleccionar_accion('explorar'), width=10).pack(pady=10) 
         Button(frame_accion, text='Colonizar', padx=15, pady=5, bg=crema, fg=verde, font=('Roboto Cn', 14), command=lambda: seleccionar_accion('colonizar'), width=10).pack(pady=10)
+        Button(frame_accion, text='Continuar', padx=15, pady=10, bg=verde, fg=crema, font=('Roboto Cn', 16), command=ejecucion, width=30).pack(pady=10)
 
-        Button(frame_accion, text='Listo!', padx=15, pady=10, bg=verde, fg=crema, font=('Roboto Cn', 16), command=ejecucion, width=30).pack(pady=10)
+    def mostrar_feedback_del_turno(self, lugar): 
+        ''' Se muestra los resultados obtenidos al explorar un lugar. '''
+        def cambiar_ventana(): 
+            frame_feedback.destroy(  )
 
-    def mostrar_feedback_del_turno(self): 
-        frame = Frame(self.root, border=0, pady=20, bg=azul_marino)
-        Label(frame, text='Aqui pondre el feedback', fg=crema, bg=azul_marino, font=('Roboto Cn', 22), pady=20).grid(row=0, column=0, columnspan=7) 
+        # Crear los frames 
+        frame_feedback = Frame(self.root, border=0, pady=180, bg=azul_marino)
+        Label(frame_feedback, text='Feedback del turno:', fg=crema, bg=azul_marino, font=('Roboto Cn', 22), pady=20).pack()
+        frame_feedback.pack()
+        miniframe_feedback = LabelFrame(frame_feedback, border=0, pady=20, padx=50, bg=verde)
+        miniframe_feedback.pack() 
 
-
+        # Encabezado 
+        Label(miniframe_feedback, text=f'Exploraste un {lugar.nombre}!', fg=crema, bg=verde, font=('Roboto Cn', 16, 'bold')).grid(row=1 ,column=0, columnspan=2)
+        Label(miniframe_feedback, text='En esta exploracion obtuviste: ', fg=azul_marino, bg=verde, font=('Roboto Cn', 14), pady=20).grid(row=2 ,column=0, columnspan=2)
+        Label(miniframe_feedback, text='', fg=azul_marino, bg=verde, font=('Roboto Cn', 14)).grid(row=3 ,column=0, columnspan=2)
+        Label(miniframe_feedback, text='cantidad:', fg=crema, bg=verde, font=('Roboto Cn', 12, 'underline')).grid(row=4 ,column=0)
+        Label(miniframe_feedback, text='recurso:', fg=crema, bg=verde, font=('Roboto Cn', 12, 'underline')).grid(row=4,column=1)
         
+        # Iterar sobre la lista de feedback para mostrarlo 
+        k = 5
+        for i in self.feedback: 
+            Label(miniframe_feedback, text=f'{i["cantidad"]}', fg=crema, bg=verde, font=('Roboto Cn', 12)).grid(row=k ,column=0)
+            Label(miniframe_feedback, text=f'{i["recurso"]}', fg=crema, bg=verde, font=('Roboto Cn', 12)).grid(row=k ,column=1)
+            k+=1
 
+        # Boton para continuar 
+        Button(frame_feedback, text='Continuar', padx=15, pady=10, bg=crema, fg=verde, font=('Roboto Cn', 14), command=cambiar_ventana, width=20).pack(pady=30)
 
+    def mostrar_scores_del_juego(self): 
+        def cambiar_ventana(): 
+            frame_scores.destroy()
 
+            # Antes de repetir el ciclo, verificar si el juego no se ha terminado
+            if self.juego.condiciones_game_over(): 
+                self.game_over()
+
+            # Volver al inicio 
+            self.realizar_seleccion()
+
+        # Crear los frames 
+        frame_scores = Frame(self.root, border=0, pady=200, bg=azul_marino) 
+        Label(frame_scores, text='Scores del juego', fg=crema, bg=azul_marino, font=('Roboto Cn', 22), pady=20).pack()
+        frame_scores.pack()
+        miniframe_scores = LabelFrame(frame_scores, border=0, pady=20, padx=50, bg=verde)
+        miniframe_scores.pack()  
+
+        # Mostrar los scores         
+        Label(miniframe_scores, text=f'Poblacion: {self.juego.sociedad.poblacion_actual}', fg=crema, bg=verde, font=('Roboto Cn', 12)).pack()
+        Label(miniframe_scores, text=f'Comida: {self.juego.sociedad.recursos["comida"].cantidad}', fg=crema, bg=verde, font=('Roboto Cn', 12)).pack()
+        Label(miniframe_scores, text=f'Combustible: {self.juego.sociedad.recursos["combustible"].cantidad}', fg=crema, bg=verde, font=('Roboto Cn', 12)).pack()
+        Label(miniframe_scores, text=f'Herramientas: {self.juego.sociedad.recursos["herramienta"].cantidad}', fg=crema, bg=verde, font=('Roboto Cn', 12)).pack()
+        Label(miniframe_scores, text=f'Turno: {self.juego.turno_juego}', fg=crema, bg=verde, font=('Roboto Cn', 12)).pack()
+        Label(miniframe_scores, text=f'Clima Estacional: {self.juego.clima.estacion_actual}', fg=crema, bg=verde, font=('Roboto Cn', 12)).pack()
+
+        Button(frame_scores, text='Continuar', padx=15, pady=10, bg=crema, fg=verde, font=('Roboto Cn', 14), command=cambiar_ventana, width=20).pack(pady=30)
+
+    def game_over(self): 
+        ''' Pantalla a mostrar cuando se ha perdido el juego. '''
+        Label(self.root, text='Game over.', fg=crema, bg=azul_marino, font=('Roboto Cn', 22), pady=20).pack()
+        Button(self.root, text='Iniciar de nuevo.', padx=15, pady=10, bg=crema, fg=verde, font=('Roboto Cn', 14), command=self.pantalla_de_inicio, width=20).pack(pady=30)
 
 
