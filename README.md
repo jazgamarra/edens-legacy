@@ -2,7 +2,7 @@
 
 ## Para realizar las pruebas 
 
-- Se necesita instalar el modulo colorama, puede hacerse con `pip install -r requirements.txt` o con `pip install colorama`
+- Se necesita instalar loa modulos colorama y tkinter, puede hacerse con `pip install -r requirements.txt. 
 - Ejecutar el archivo `app_terminal.py` para jugar con la interfaz orientada a texto. 
 - Ejecutar el archivo `app_tkinter.py` para jugar con la interfaz grafica. 
 
@@ -31,8 +31,6 @@ El proyecto esta separado principalmente en cuatro modulos:
 
     Se colocaron separadas de las mecanicas porque ademas de contener datos estaticos,  es la seccion que debe cambiar si cambian ciertas condiciones o constantes literales en la jugabilidad del juego, como por ejemplo si cambia el indice de extraccion de algun recurso 
 
-- **ProgramacionLogica**
-    Lo utilizo para realizar pruebas para integrar datalog en mi proyecto. 
 --- 
 ## Datos 
 Jazmin Gamarra 
