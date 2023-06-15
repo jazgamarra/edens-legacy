@@ -1,3 +1,2 @@
 colorama==0.4.6
-pyDatalog==0.17.4
 tk==0.1.0
