@@ -3,22 +3,19 @@ from Vista.paleta_de_colores import *
 from Modelo.clima_estacional import ClimaEstacional 
 from Controlador.mecanicas_juego import Juego 
 from Modelo.mapa import Mapa
-from Vista.vista_orientada_a_texto import EntradaSalida
 import tkinter.messagebox as messagebox 
 from Modelo.sociedad import * 
 
-class InterfazInicial(): 
+class InterfazGrafica(): 
     def __init__ (self): 
-        self.clima = ClimaEstacional() 
         self.sociedad = None
         self.mapa = Mapa() 
         self.juego = None
-        self.vista = None
         self.root = Tk() 
 
-        self.lugar_seleccionado = None 
-        self.accion_seleccionada = None 
-        self.feedback = None 
+        self.__lugar_seleccionado = None 
+        self.__accion_seleccionada = None 
+        self.__feedback = None 
 
         self.inicializar_interfaz()
 
@@ -53,8 +50,7 @@ class InterfazInicial():
         ''' Seleccionar la raza a la que se pertenecera '''
         def definir_raza(raza): 
             self.sociedad = Sociedad(Juego.definir_raza(raza) )
-            self.juego = Juego(self.sociedad, self.clima, self.mapa) 
-            self.vista = EntradaSalida(self.juego)
+            self.juego = Juego(self.sociedad, ClimaEstacional(), self.mapa) 
             print(self.juego)
 
         def cambiar_ventana(raza): 
@@ -79,7 +75,6 @@ class InterfazInicial():
         Button(frame, text='duende', padx=15, pady=10, bg=verde, fg=crema, 
                     font=('P052', 16), command=lambda: cambiar_ventana('duende'), width=30).pack(pady=50) 
 
-
     def pantalla_de_inicio(self): 
         ''' Primera pantalla que se visualizara al inicar el juego. '''
         def cambiar_ventana(): 
@@ -97,7 +92,6 @@ class InterfazInicial():
         label.pack()
         logo_frame.pack(pady=50)
         button.pack(pady=60) 
-        
     
     def realizar_seleccion(self): 
         ''' Permite seleccionar los parametros necesarios para realizar una accion en el juego. '''
@@ -105,11 +99,11 @@ class InterfazInicial():
         def seleccionar_lugar(x,y): 
             ''' Seleccionar un lugar para realizar la accion'''
             label_lugar_seleccionado['text'] = f'Seleccionaste el lugar {x},{y}'
-            self.lugar_seleccionado = self.mapa.matriz[x][y]
+            self.__lugar_seleccionado = self.mapa.matriz[x][y]
 
         def seleccionar_accion(accion): 
             ''' Seleccionar la accion a realizar '''
-            self.accion_seleccionada = accion
+            self.__accion_seleccionada = accion
 
         def cambiar_ventana(): 
             frame.destroy()
@@ -117,17 +111,17 @@ class InterfazInicial():
 
         def ejecucion():
             ''' Se encarga de llamar a los metodos para realizar las acciones segun los parametros dados '''
-            if self.accion_seleccionada and self.lugar_seleccionado: 
+            if self.__accion_seleccionada and self.__lugar_seleccionado: 
                 cambiar_ventana()
                 # Llamar a las funciones depediendo de la accion que se haya seleccionado 
-                if self.accion_seleccionada == 'explorar': 
-                    self.feedback = self.juego.explorar(self.lugar_seleccionado)
-                    self.mostrar_feedback_del_turno(self.lugar_seleccionado)
-                elif self.accion_seleccionada == 'colonizar':
-                    self.juego.colonizar(self.lugar_seleccionado)
+                if self.__accion_seleccionada == 'explorar': 
+                    self.__feedback = self.juego.explorar(self.__lugar_seleccionado)
+                    self.mostrar_feedback_del_turno(self.__lugar_seleccionado)
+                elif self.__accion_seleccionada == 'colonizar':
+                    self.juego.colonizar(self.__lugar_seleccionado)
                 self.mostrar_scores_del_juego()
-                self.lugar_seleccionado = None 
-                self.accion_seleccionada = None 
+                self.__lugar_seleccionado = None 
+                self.__accion_seleccionada = None 
             else: 
                 messagebox.showwarning('Error', 'Debes seleccionar un lugar y una accion antes de continuar.')
 
@@ -217,9 +211,9 @@ class InterfazInicial():
         Label(miniframe_feedback, text='cantidad:', fg=crema, bg=verde, font=('P052', 12, 'underline')).grid(row=4 ,column=0)
         Label(miniframe_feedback, text='recurso:', fg=crema, bg=verde, font=('P052', 12, 'underline')).grid(row=4,column=1)
         
-        # Iterar sobre la lista de feedback para mostrarlo 
+        # Iterar sobre la lista de __feedback para mostrarlo 
         k = 5
-        for i in self.feedback: 
+        for i in self.__feedback: 
             Label(miniframe_feedback, text=f'{i["cantidad"]}', fg=crema, bg=verde, font=('P052', 12)).grid(row=k ,column=0)
             Label(miniframe_feedback, text=f'{i["recurso"]}', fg=crema, bg=verde, font=('P052', 12)).grid(row=k ,column=1)
             k+=1

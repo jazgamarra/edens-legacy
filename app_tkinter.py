@@ -1,6 +1,6 @@
 from Vista.vista_con_tkinter import * 
  
-i = InterfazInicial() 
+i = InterfazGrafica() 
 
 # Vistas iniciales 
 i.pantalla_de_inicio()

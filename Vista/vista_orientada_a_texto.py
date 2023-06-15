@@ -6,7 +6,7 @@ Algunas funciones fueron reutilizadas y otras seran descontinuadas
 from colorama import Fore
 from Modelo.raza import Humano, Duende
 
-class EntradaSalida(): 
+class InterfazTexto(): 
     def __init__(self, juego):
         self.juego = juego
 

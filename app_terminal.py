@@ -6,14 +6,14 @@ from Modelo.sociedad import Sociedad
 from Modelo.raza import Duende
 from Controlador.mecanicas_juego import Juego 
 from Modelo.mapa import Mapa
-from Vista.vista_orientada_a_texto import EntradaSalida
+from Vista.vista_orientada_a_texto import InterfazTexto
 
 # Se crean los objetos que interactuaran en el juego 
 clima = ClimaEstacional() 
 sociedad = Sociedad(Duende())  
 mapa = Mapa()
 juego = Juego(sociedad, clima, mapa)
-vista = EntradaSalida(juego)
+vista = InterfazTexto(juego)
 
 # Ciclo del juego 
 while not juego.condiciones_game_over(): 
