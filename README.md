@@ -2,7 +2,7 @@
 
 ## Para realizar las pruebas 
 
-- Se necesita instalar loa modulos colorama y tkinter, puede hacerse con `pip install -r requirements.txt. 
+- Se necesita instalar los modulos colorama y tkinter, puede hacerse con `pip install -r requirements.txt. 
 - Ejecutar el archivo `app_terminal.py` para jugar con la interfaz orientada a texto. 
 - Ejecutar el archivo `app_tkinter.py` para jugar con la interfaz grafica. 
 
